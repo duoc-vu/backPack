@@ -23,10 +23,10 @@ const LoginTab = ({navigation}:any) => {
         if(regexEmail.test(formData._email))
         {
             setCheckEmail(false);
-            navigation.navigate('Home')
+            
         }else{
             setCheckEmail(true)
-            
+            navigation.navigate('HomeTab')
         }
         formData._password ==='' ?setCheckPass('Chưa nhập mật khẩu'): setCheckPass('');
     }
