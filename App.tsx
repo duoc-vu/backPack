@@ -1,10 +1,10 @@
 
 import React, { Button } from 'react-native';
 import { Text } from 'react-native';
-import HomeTab from './Screens/HomeTab';
+import HomeTab from './Screens/Home/HomeTab';
 import { View } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import LoginTab from './Screens/LoginTab';
+import LoginTab from './Screens/Login/LoginTab';
 import { NavigationContainer } from '@react-navigation/native';
 
 const HomeMenu = ({navigation}:any) => {

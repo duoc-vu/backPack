@@ -4,7 +4,7 @@ import CheckBox from '@react-native-community/checkbox';
 import { useState } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
-import HomeTab from './HomeTab';
+import HomeTab from '../Home/HomeTab';
 
 const LoginTab = ({navigation}:any) => {
     const [isCheck , setIsCheck] = useState(false);
