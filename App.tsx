@@ -11,7 +11,7 @@ const HomeMenu = ({navigation}:any) => {
   return(
       <View>
         <Text>Home Menu</Text>
-        <Button title='Chuyen trang Login' onPress={()=> navigation.navigate('Login')}></Button>
+        <Button title='Chuyen trang Login' onPress={()=> navigation.navigate('Home')}></Button>
       </View>
 
   )
