@@ -22,9 +22,11 @@ const LoginTab = ({navigation}:any) => {
         let regexEmail = /^([-!#-\'*+\/-9=?A-Z^-~]{1,64}(\.[-!#-\'*+\/-9=?A-Z^-~]{1,64})*|"([]!#-[^-~ \t]|(\\[\t -~]))+")@[0-9A-Za-z]([0-9A-Za-z-]{0,61}[0-9A-Za-z])?(\.[0-9A-Za-z]([0-9A-Za-z-]{0,61}[0-9A-Za-z])?)+$/
         if(regexEmail.test(formData._email))
         {
-                setCheckEmail(false);
+            setCheckEmail(false);
+            navigation.navigate('Home')
         }else{
             setCheckEmail(true)
+            
         }
         formData._password ==='' ?setCheckPass('Chưa nhập mật khẩu'): setCheckPass('');
     }
@@ -68,17 +70,14 @@ const LoginTab = ({navigation}:any) => {
                         <TouchableOpacity onPress={()=>Alert.alert('Quên mật khẩu')}><Text style={{color:'blue'}}>Quên mật khẩu</Text></TouchableOpacity>
                     </View>
                 </View>
-                <TouchableOpacity style={styles.buttons} onPress={()=> navigation.navigate('Home')}>
+                <TouchableOpacity style={styles.buttons} onPress={()=> onSubmit()}>
                     <Text style={{color:'#fff'}}>Login</Text>
                 </TouchableOpacity>
                 <Text> Email :{email}</Text>
                 <Text> Password :{password}</Text>
                 <View>
-                    <Image source={require('../assets/Subtract.png')} style ={styles.footer} />
+                    <Image source={require('../../assets/bia1.jpg')} style ={styles.footer} />
                 </View>
-
-
-
         </SafeAreaView> 
         </>
     )
