@@ -1,55 +1,76 @@
 import React, { Alert, Image, SafeAreaView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Fontisto';
 import CheckBox from '@react-native-community/checkbox';
+import axios, { isCancel, AxiosError } from 'axios';
 import { useState } from 'react';
 
-const LoginScreen = () => {
-    const [isCheck , setIsCheck] = useState(false);
-    const [email,setEmail] = useState('');
-    const [password , setPassword] = useState('');
-    const [checkEmail,setCheckEmail] =useState(false);
-    const [errorPass, setCheckPass] =useState('');
+const LoginScreen = ({ navigation }: any) => {
+    const [isCheck, setIsCheck] = useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [checkEmail, setCheckEmail] = useState(false);
+    const [errorPass, setCheckPass] = useState('');
+
 
     const onSubmit = () => {
         let formData = {
-            _email :email,
-            _password : password,
-            _checkBox :isCheck
+            email: email,
+            password: password,
+            checkBox: isCheck
         }
-        let regexEmail = /^([-!#-\'*+\/-9=?A-Z^-~]{1,64}(\.[-!#-\'*+\/-9=?A-Z^-~]{1,64})*|"([]!#-[^-~ \t]|(\\[\t -~]))+")@[0-9A-Za-z]([0-9A-Za-z-]{0,61}[0-9A-Za-z])?(\.[0-9A-Za-z]([0-9A-Za-z-]{0,61}[0-9A-Za-z])?)+$/
-        if(regexEmail.test(formData._email))
-        {
-                setCheckEmail(false);
-        }else{
-            setCheckEmail(true)
-        }
-        formData._password ==='' ?setCheckPass('Chưa nhập mật khẩu'): setCheckPass('');
+        axios.get('https://6620a7e23bf790e070b03688.mockapi.io/Account')
+        .then(response => {
+            const user:any = response.data.find((user:any) => user.email === email);
+            // Xử lý dữ liệu trả về
+            if(user.email ===email)
+                if(user.password === password)
+                    {
+                        Alert.alert(`Chao mung ${user.email} quay tro lai`)
+                        navigation.navigate('Home')
+                    }
+            else
+                Alert.alert('Sai tk hoac mk')
+            
+        })
+        .catch(error => {
+            // Xử lý lỗi
+            console.error('Error:', error);
+        });
+
+        // let regexEmail = /^([-!#-\'*+\/-9=?A-Z^-~]{1,64}(\.[-!#-\'*+\/-9=?A-Z^-~]{1,64})*|"([]!#-[^-~ \t]|(\\[\t -~]))+")@[0-9A-Za-z]([0-9A-Za-z-]{0,61}[0-9A-Za-z])?(\.[0-9A-Za-z]([0-9A-Za-z-]{0,61}[0-9A-Za-z])?)+$/
+        // if(regexEmail.test(formData._email))
+        // {
+        //         setCheckEmail(false);
+        // }else{
+        //     setCheckEmail(true)
+        // }
+        // formData._password ==='' ?setCheckPass('Chưa nhập mật khẩu'): setCheckPass('');
     }
 
-    return(
+    return (
         <>
-            <SafeAreaView style = {styles.container}>
-            <StatusBar backgroundColor={'#ffffff'} barStyle={'dark-content'}></StatusBar>
+            <SafeAreaView style={styles.container}>
+                <StatusBar backgroundColor={'#ffffff'} barStyle={'dark-content'}></StatusBar>
                 <View style={styles.title}>
-                    <Text style={{fontWeight:'bold' , fontSize:30 ,color:'black'}}>Login</Text>
+                    <Text style={{ fontWeight: 'bold', fontSize: 30, color: 'black' }}>Login</Text>
                     <Text>By signing in you are agreeing </Text>
-                    <View style={{flexDirection:'row'}}>
-                        <Text>our </Text><TouchableOpacity onPress={()=>Alert.alert('sau nay lam')}><Text style={{color:'#1bcdff'}}>Term and privacy policy</Text></TouchableOpacity>
+                    <View style={{ flexDirection: 'row' }}>
+                        <Text>our </Text><TouchableOpacity onPress={() => Alert.alert('sau nay lam')}><Text style={{ color: '#1bcdff' }}>Term and privacy policy</Text></TouchableOpacity>
                     </View>
                 </View>
 
                 <View style={styles.form}>
                     <View style={styles.group}>
                         <Icon style={styles.icon} name="email" size={30} color="gray" />
-                        <TextInput placeholder='Email Adress' style={styles.input} onChangeText={(value)=>setEmail(value)}></TextInput>
-                        <Text style={{color:'red',} }>{checkEmail?'Sai định dạng Email':''}</Text>
+                        <TextInput placeholder='Email Adress' style={styles.input} onChangeText={(value) => setEmail(value)}></TextInput>
+                        <Text style={{ color: 'red', }}>{checkEmail ? 'Sai định dạng Email' : ''}</Text>
                     </View>
                 </View>
                 <View style={styles.form}>
                     <View style={styles.group}>
                         <Icon style={styles.icon} name="locked" size={30} color="gray" />
-                        <TextInput placeholder='Password' style={styles.input} secureTextEntry={true} onChangeText={(value)=>setPassword(value)}></TextInput>
-                        <Text style={{color:'red'}}>{errorPass}</Text>
+                        <TextInput placeholder='Password' style={styles.input} secureTextEntry={true} onChangeText={(value) => setPassword(value)}></TextInput>
+                        <Text style={{ color: 'red' }}>{errorPass}</Text>
                     </View>
                 </View>
                 <View style={styles.group1}>
@@ -58,87 +79,87 @@ const LoginScreen = () => {
                             disabled={false}
                             value={isCheck}
                             onValueChange={() => setIsCheck(!isCheck)}
-                            tintColors={{true:'red'} }
+                            tintColors={{ true: 'red' }}
                         />
-                        <Text style={{marginTop:5 , color:'blue'}}>Ghi nhớ tài khoản</Text>
+                        <Text style={{ marginTop: 5, color: 'blue' }}>Ghi nhớ tài khoản</Text>
                     </View>
-                    <View style={{marginTop:25}}>
-                        <TouchableOpacity onPress={()=>Alert.alert('Quên mật khẩu')}><Text style={{color:'blue'}}>Quên mật khẩu</Text></TouchableOpacity>
+                    <View style={{ marginTop: 25 }}>
+                        <TouchableOpacity onPress={() => Alert.alert('Quên mật khẩu')}><Text style={{ color: 'blue' }}>Quên mật khẩu</Text></TouchableOpacity>
                     </View>
                 </View>
-                <TouchableOpacity style={styles.buttons} onPress={()=>onSubmit()}>
-                    <Text style={{color:'#fff'}}>Login</Text>
+                <TouchableOpacity style={styles.buttons} onPress={() => onSubmit()}>
+                    <Text style={{ color: '#fff' }}>Login</Text>
                 </TouchableOpacity>
                 <Text> Email :{email}</Text>
                 <Text> Password :{password}</Text>
                 <View>
-                    <Image source={require('.././assets/Subtract.png')} style ={styles.footer} />
+                    <Image source={require('.././assets/Subtract.png')} style={styles.footer} />
                 </View>
-                
-        </SafeAreaView> 
+
+            </SafeAreaView>
         </>
     )
 }
 
 const styles = StyleSheet.create({
-    container:{
-        
+    container: {
+
         // justifyContent:'center',
-        backgroundColor:'#ffffff',
-        
-        
-    },
-    title:{
-        marginTop:30,
-        alignItems:'center'
-    },
-    form:{
-        paddingHorizontal:30,
-        marginTop:30
-    },
-    group:{
-        marginTop:10
-    },
-    input:{
-        borderBottomWidth:1,
-        borderColor:'gray',
-        backgroundColor:'white',
-        paddingLeft:35
+        backgroundColor: '#ffffff',
+
 
     },
-    icon:{
-        fontSize:25,
-        position:'absolute',
-        top:10,
-        zIndex:100
+    title: {
+        marginTop: 30,
+        alignItems: 'center'
     },
-    group1:{
-        flexDirection:'row',
-        justifyContent:'space-between',
-        marginHorizontal:15
+    form: {
+        paddingHorizontal: 30,
+        marginTop: 30
     },
-    items:{
-        flexDirection:'row',
-        alignContent:'center',
-        marginTop:20,
-        
+    group: {
+        marginTop: 10
+    },
+    input: {
+        borderBottomWidth: 1,
+        borderColor: 'gray',
+        backgroundColor: 'white',
+        paddingLeft: 35
+
+    },
+    icon: {
+        fontSize: 25,
+        position: 'absolute',
+        top: 10,
+        zIndex: 100
+    },
+    group1: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginHorizontal: 15
+    },
+    items: {
+        flexDirection: 'row',
+        alignContent: 'center',
+        marginTop: 20,
+
     },
     main: {
-        backgroundColor:'#ffffff',
-        
+        backgroundColor: '#ffffff',
+
     },
-    buttons:{
-        alignItems:'center',
-        marginTop:10,
-        backgroundColor:'#1bcdff',
-        paddingVertical:10,
-        borderRadius:10
+    buttons: {
+        alignItems: 'center',
+        marginTop: 10,
+        backgroundColor: '#1bcdff',
+        paddingVertical: 10,
+        borderRadius: 10
     },
-    footer:{
-        justifyContent:'center',
-        marginTop:70
+    footer: {
+        justifyContent: 'center',
+        marginTop: 70
     }
-    
+
 })
 
 export default LoginScreen;
