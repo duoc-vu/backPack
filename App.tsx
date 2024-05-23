@@ -8,10 +8,13 @@ import LoginTab from './Screens/LoginTab';
 const Tab = createBottomTabNavigator();
 const App = () => {
   return(
-    <Tab.Navigator>
-      <Tab.Screen name="Home" component={HomeTab} />
-      <Tab.Screen name="Settings" component={LoginTab} />
-    </Tab.Navigator>
+    <NavigationContainer>
+      <Tab.Navigator>
+            <Tab.Screen name="Home" component={HomeTab} />
+            <Tab.Screen name="Settings" component={LoginTab} />
+          </Tab.Navigator>
+    </NavigationContainer>
+    
   )
 }
 
