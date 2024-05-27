@@ -9,6 +9,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Product from './Screens/Product';
 import HomeTab from './Screens/HomeTab';
 import AccountStack from './Screens/Component/AccountStack';
+import API from './Screens/API';
 
 // import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
@@ -41,6 +42,7 @@ const App = () => {
         <Tab.Screen name="Home" component={HomeTab} />
         <Tab.Screen name="Account" component={AccountStack}/>
         <Tab.Screen name="SanPham" component={Product} />
+        <Tab.Screen name="API" component={API} />
       </Tab.Navigator>
     </NavigationContainer>
     
