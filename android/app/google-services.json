@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1007622942341",
+    "project_id": "hehe-b1fe0",
+    "storage_bucket": "hehe-b1fe0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1007622942341:android:54eaa99eea43adb73c43ec",
+        "android_client_info": {
+          "package_name": "com.backpack"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATrwOsKPByFCalbvtmKb01VyTI2h4wKAM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
